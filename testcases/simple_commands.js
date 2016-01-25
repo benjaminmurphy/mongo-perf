@@ -3,7 +3,7 @@ if ( typeof(tests) != "object" ) {
 }
 
 /*
- * Setup: 
+ * Setup:
  * Test: Run command isMaster
  */
 tests.push( { name: "Commands.isMaster",
@@ -13,7 +13,7 @@ tests.push( { name: "Commands.isMaster",
               ] } );
 
 /*
- * Setup: 
+ * Setup:
  * Test: Run command buildInfo
  */
 tests.push( { name: "Commands.buildInfo",
@@ -23,7 +23,7 @@ tests.push( { name: "Commands.buildInfo",
               ] } );
 
 /*
- * Setup: 
+ * Setup:
  * Test: Run a non-existent test
  */
 tests.push( { name: "Commands.illegalOp",
@@ -33,7 +33,7 @@ tests.push( { name: "Commands.illegalOp",
               ] } );
 
 /*
- * Setup: 
+ * Setup:
  * Test: Run benchrun command nop. Doesn't touch the server.
  */
 tests.push( { name: "Commands.nop",
@@ -64,7 +64,7 @@ tests.push( { name: "Commands.CountsFullCollection",
 
 /*
  * Setup: Create collection of documents with only integer _id field
- * Test: Count documents with _id in range (10,100). 
+ * Test: Count documents with _id in range (10,100).
  */
 tests.push( { name: "Commands.CountsIntIDRange",
               tags: ['command','regression'],
@@ -86,7 +86,7 @@ tests.push( { name: "Commands.CountsIntIDRange",
               ] } );
 
 /*
- * Setup: 
+ * Setup:
  * Test: Call find and modify with upsert on an integer _id field. The
  *       _id field is updated to the existing value. Each thread works
  *       on distinct range of documents.
@@ -107,11 +107,21 @@ tests.push( { name: "Commands.FindAndModifyInserts",
               ] } );
 
 /*
- * Function to generate tests using distinct command. 
+ * Setup:
+ * Test: Run command profile
+ */
+tests.push( { name: "Commands.ReadProfile",
+              tags: ['command', 'ben-test'],
+              ops: [
+                  { op: "command", ns : "#B_DB", command : { "profile" : -1 } }
+              ] } );
+
+/*
+ * Function to generate tests using distinct command.
  * name: The name to give to the test
  * index: Use an index or not
  * query: Use a query on field x to the distinct command
- * 
+ *
  * The function creates a full test, with name, tags, ops, and pre fields
  */
 function genDistinctTest( name, index, query ) {
@@ -161,7 +171,7 @@ function genDistinctTest( name, index, query ) {
 /*
  * Setup: Create a collection with documents {_id, x}, with three
  *        distinct integer values of x, with an index on x.
- * Test:  Call distinct command on field x. 
+ * Test:  Call distinct command on field x.
  */
 tests.push( genDistinctTest( "Commands.DistinctWithIndex", true, false ) );
 
